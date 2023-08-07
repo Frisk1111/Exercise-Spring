@@ -64,6 +64,125 @@ public class BookService {
 
     }
 
+    public ResponseEntity<?> addBook(BookDto bookDto) {
 
+
+        List<Book> book2 = bookRepo.findAll();
+
+
+        if (bookDto != null) {
+            Book book = new Book();
+
+
+            book.setTitle(bookDto.getTitle());
+            book.setAuthor(bookDto.getAuthor());
+            book.setIsbn(bookDto.getIsbn());
+            book.setStatus(bookDto.getStatus());
+
+            for (Book book1 : book2) {
+
+                if (book1.getIsbn().equals(book.getIsbn())) {
+
+
+                    return ResponseEntity.badRequest().body("\n SOMETHING HAPPEND! THE ISBN SEEMS TO  BE EQUALS to ANOTHER BOOk! CHANGE IT :((");
+
+
+                }
+            }
+
+
+            bookRepo.save(book);
+
+
+            bookDto.setTitle(book.getTitle());
+            bookDto.setAuthor(book.getAuthor());
+            bookDto.setIsbn(book.getIsbn());
+            bookDto.setStatus(book.getStatus());
+            bookDto.setId(book.getId());
+
+            return ResponseEntity.ok().body(bookDto);
+        } else {
+
+            throw new RuntimeException("SOMETHING HAPPEND! SOMETHING NOT GOOD. so sorry :(");
+        }
+    }
+
+
+    public BookDto updateBook(Long id, BookDto bookDto) {
+
+        Book book;
+
+        Optional<Book> optionalBook = bookRepo.findById(id);
+
+        if (optionalBook.isPresent()) {
+
+            book = optionalBook.get();
+
+            bookRepo.delete(book);
+
+
+            book.setTitle(bookDto.getTitle());
+            book.setAuthor(bookDto.getAuthor());
+            book.setIsbn(bookDto.getIsbn());
+            book.setStatus(bookDto.getStatus());
+
+            bookRepo.save(book);
+
+
+            bookDto.setTitle(book.getTitle());
+            bookDto.setAuthor(book.getAuthor());
+            bookDto.setIsbn(book.getIsbn());
+            bookDto.setStatus(book.getStatus());
+
+
+            return bookDto;
+        } else {
+
+            throw new RuntimeException("Book no0t found");
+        }
+
+
+    }
+
+    public void physicalDeleteBookById(Long id) {
+
+        Book book;
+        Optional<Book> optionalBook = bookRepo.findById(id);
+
+        if (optionalBook.isPresent()) {
+
+            book = optionalBook.get();
+
+            bookRepo.delete(book);
+        } else {
+
+            throw new RuntimeException("Book no0t found");
+        }
+
+
+    }
+
+
+    public void logicalDeleteBookBYId(Long id) {
+
+        Book book;
+
+        Optional<Book> optionalBook = bookRepo.findById(id);
+
+
+        if (optionalBook.isPresent()) {
+
+
+            book = optionalBook.get();
+
+
+            book.setStatus(StatusEnum.SELLED);
+
+            bookRepo.save(book);
+
+        }
+
+
+    }
 
 }
