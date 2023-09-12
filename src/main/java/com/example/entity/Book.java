@@ -24,6 +24,11 @@ public class Book {
     private StatusEnum status;
 
 
+
+    @ManyToOne
+    @JoinColumn(name = "shelf_id", referencedColumnName = "id")
+    private Shelf shelf;
+
     public Book() {
     }
 
@@ -36,6 +41,14 @@ public class Book {
         this.id = id;
     }
 
+
+    public Shelf getShelf() {
+        return shelf;
+    }
+
+    public void setShelf(Shelf shelf) {
+        this.shelf = shelf;
+    }
 
     public StatusEnum getStatus() {
         return status;
