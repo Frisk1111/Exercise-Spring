@@ -50,7 +50,7 @@ public class BookService {
 
 
             if (book.getStatus() != StatusEnum.SELLED) {
-                return ResponseEntity.ok().body(new BookDto(book.getTitle(), book.getAuthor(), book.getIsbn()));
+                return ResponseEntity.ok().body(new BookDto(book.getTitle(), book.getAuthor(), book.getIsbn(), book.getStatus(), book.getShelf()));
 
 
             } else{
@@ -78,6 +78,8 @@ public class BookService {
             book.setAuthor(bookDto.getAuthor());
             book.setIsbn(bookDto.getIsbn());
             book.setStatus(bookDto.getStatus());
+            book.setShelf(bookDto.getShelf());
+
 
             for (Book book1 : book2) {
 
@@ -98,6 +100,7 @@ public class BookService {
             bookDto.setAuthor(book.getAuthor());
             bookDto.setIsbn(book.getIsbn());
             bookDto.setStatus(book.getStatus());
+            bookDto.setShelf(book.getShelf());
             bookDto.setId(book.getId());
 
             return ResponseEntity.ok().body(bookDto);
@@ -125,6 +128,7 @@ public class BookService {
             book.setAuthor(bookDto.getAuthor());
             book.setIsbn(bookDto.getIsbn());
             book.setStatus(bookDto.getStatus());
+            book.setShelf(bookDto.getShelf());
 
             bookRepo.save(book);
 
@@ -133,6 +137,8 @@ public class BookService {
             bookDto.setAuthor(book.getAuthor());
             bookDto.setIsbn(book.getIsbn());
             bookDto.setStatus(book.getStatus());
+            bookDto.setShelf(book.getShelf());
+
 
 
             return bookDto;

@@ -32,6 +32,13 @@ public class Book {
     public Book() {
     }
 
+    public Book(String title, String author, String isbn, StatusEnum status, Shelf shelf) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.status = status;
+        this.shelf = shelf;
+    }
 
     public Long getId() {
         return id;
