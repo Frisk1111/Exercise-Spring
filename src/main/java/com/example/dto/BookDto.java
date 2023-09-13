@@ -1,7 +1,11 @@
 package com.example.dto;
 
 
+import com.example.entity.Book;
+import com.example.entity.Shelf;
 import com.example.enums.StatusEnum;
+
+import java.util.List;
 
 public class BookDto {
 
@@ -17,11 +21,14 @@ public class BookDto {
 
     private StatusEnum status;
 
+    private Shelf shelf;
 
-    public BookDto(String title, String author, String isbn) {
+    public BookDto(String title, String author, String isbn, StatusEnum status, Shelf shelf) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+        this.status = status;
+        this.shelf = shelf;
     }
 
     public BookDto(Long id, String title, String author, String isbn, StatusEnum status) {
@@ -35,6 +42,8 @@ public class BookDto {
     public BookDto() {
     }
 
+    public BookDto(List<Book> books) {
+    }
 
 
     public Long getId() {
@@ -75,5 +84,13 @@ public class BookDto {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public Shelf getShelf() {
+        return shelf;
+    }
+
+    public void setShelf(Shelf shelf) {
+        this.shelf = shelf;
     }
 }
