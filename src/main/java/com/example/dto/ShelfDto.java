@@ -1,31 +1,31 @@
-package com.example.entity;
+package com.example.dto;
 
+
+import com.example.entity.Book;
 import com.example.enums.StatusShelf;
-import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-public class Shelf {
+public class ShelfDto {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
-    @Column
     private String category;
 
+    private List<BookDto> books;
 
-    @OneToMany(mappedBy = "shelf")
-    private List<Book> books;
-
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
     private StatusShelf statusShelf;
 
-    public Shelf() {
+
+    public ShelfDto() {
+    }
+
+    public ShelfDto(String category, List<BookDto> books, StatusShelf statusShelf) {
+        this.category = category;
+        this.books = books;
+        this.statusShelf = statusShelf;
     }
 
 
@@ -36,7 +36,6 @@ public class Shelf {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public StatusShelf getStatusShelf() {
         return statusShelf;
@@ -54,11 +53,11 @@ public class Shelf {
         this.category = category;
     }
 
-    public List<Book> getBooks() {
+    public List<BookDto> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(List<BookDto> books) {
         this.books = books;
     }
 }
